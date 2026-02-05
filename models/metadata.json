@@ -1,0 +1,360 @@
+{
+  "metrics": {
+    "accuracy": 0.7877,
+    "precision": 0.7541,
+    "recall": 0.6667,
+    "f1_score": 0.7077,
+    "confusion_matrix": [
+      [
+        95,
+        15
+      ],
+      [
+        23,
+        46
+      ]
+    ],
+    "cv_scores": [
+      0.7933,
+      0.8258,
+      0.8539,
+      0.8034,
+      0.8427
+    ],
+    "cv_mean": 0.8238,
+    "cv_std": 0.0229,
+    "feature_importance": {
+      "Sex": 0.3119,
+      "Fare": 0.2271,
+      "Age": 0.1797,
+      "Pclass": 0.101,
+      "Family Size": 0.057,
+      "SibSp": 0.0314,
+      "Parch": 0.0249,
+      "Embarked_S": 0.0216,
+      "Is Alone": 0.0186,
+      "Embarked_C": 0.0161,
+      "Embarked_Q": 0.0107
+    },
+    "feature_names": [
+      "Pclass",
+      "Sex",
+      "Age",
+      "SibSp",
+      "Parch",
+      "Fare",
+      "Embarked_C",
+      "Embarked_Q",
+      "Embarked_S",
+      "Family Size",
+      "Is Alone"
+    ],
+    "feature_cols": [
+      "pclass",
+      "sex_encoded",
+      "age",
+      "sibsp",
+      "parch",
+      "fare",
+      "embarked_C",
+      "embarked_Q",
+      "embarked_S",
+      "family_size",
+      "is_alone"
+    ]
+  },
+  "stats": {
+    "survival_by_class": {
+      "1": 0.6296,
+      "2": 0.4728,
+      "3": 0.2424
+    },
+    "survival_by_sex": {
+      "female": 0.742,
+      "male": 0.1889
+    },
+    "age_distribution": {
+      "0-10": 64,
+      "11-20": 115,
+      "21-30": 377,
+      "31-40": 185,
+      "41-50": 86,
+      "51-60": 42,
+      "61-70": 17,
+      "71-80": 5
+    },
+    "survival_by_age": {
+      "0-10": 0.5938,
+      "11-20": 0.3826,
+      "21-30": 0.3236,
+      "31-40": 0.4486,
+      "41-50": 0.3837,
+      "51-60": 0.4048,
+      "61-70": 0.2353,
+      "71-80": 0.2
+    },
+    "embarked_distribution": {
+      "S": 646,
+      "C": 168,
+      "Q": 77
+    },
+    "survival_by_embarked": {
+      "C": 0.5536,
+      "Q": 0.3896,
+      "S": 0.339
+    },
+    "total_passengers": 891,
+    "survival_rate": 0.3838,
+    "avg_age": 29.11,
+    "avg_fare": 32.2,
+    "class_distribution": {
+      "1": 216,
+      "2": 184,
+      "3": 491
+    },
+    "sample_data": [
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "male",
+        "age": 22.0,
+        "sibsp": 1,
+        "parch": 0,
+        "fare": 7.25,
+        "embarked": "S"
+      },
+      {
+        "survived": 1,
+        "pclass": 1,
+        "sex": "female",
+        "age": 38.0,
+        "sibsp": 1,
+        "parch": 0,
+        "fare": 71.2833,
+        "embarked": "C"
+      },
+      {
+        "survived": 1,
+        "pclass": 3,
+        "sex": "female",
+        "age": 26.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 7.925,
+        "embarked": "S"
+      },
+      {
+        "survived": 1,
+        "pclass": 1,
+        "sex": "female",
+        "age": 35.0,
+        "sibsp": 1,
+        "parch": 0,
+        "fare": 53.1,
+        "embarked": "S"
+      },
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "male",
+        "age": 35.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 8.05,
+        "embarked": "S"
+      },
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "male",
+        "age": 25.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 8.4583,
+        "embarked": "Q"
+      },
+      {
+        "survived": 0,
+        "pclass": 1,
+        "sex": "male",
+        "age": 54.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 51.8625,
+        "embarked": "S"
+      },
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "male",
+        "age": 2.0,
+        "sibsp": 3,
+        "parch": 1,
+        "fare": 21.075,
+        "embarked": "S"
+      },
+      {
+        "survived": 1,
+        "pclass": 3,
+        "sex": "female",
+        "age": 27.0,
+        "sibsp": 0,
+        "parch": 2,
+        "fare": 11.1333,
+        "embarked": "S"
+      },
+      {
+        "survived": 1,
+        "pclass": 2,
+        "sex": "female",
+        "age": 14.0,
+        "sibsp": 1,
+        "parch": 0,
+        "fare": 30.0708,
+        "embarked": "C"
+      },
+      {
+        "survived": 1,
+        "pclass": 3,
+        "sex": "female",
+        "age": 4.0,
+        "sibsp": 1,
+        "parch": 1,
+        "fare": 16.7,
+        "embarked": "S"
+      },
+      {
+        "survived": 1,
+        "pclass": 1,
+        "sex": "female",
+        "age": 58.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 26.55,
+        "embarked": "S"
+      },
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "male",
+        "age": 20.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 8.05,
+        "embarked": "S"
+      },
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "male",
+        "age": 39.0,
+        "sibsp": 1,
+        "parch": 5,
+        "fare": 31.275,
+        "embarked": "S"
+      },
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "female",
+        "age": 14.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 7.8542,
+        "embarked": "S"
+      },
+      {
+        "survived": 1,
+        "pclass": 2,
+        "sex": "female",
+        "age": 55.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 16.0,
+        "embarked": "S"
+      },
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "male",
+        "age": 2.0,
+        "sibsp": 4,
+        "parch": 1,
+        "fare": 29.125,
+        "embarked": "Q"
+      },
+      {
+        "survived": 1,
+        "pclass": 2,
+        "sex": "male",
+        "age": 30.0,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 13.0,
+        "embarked": "S"
+      },
+      {
+        "survived": 0,
+        "pclass": 3,
+        "sex": "female",
+        "age": 31.0,
+        "sibsp": 1,
+        "parch": 0,
+        "fare": 18.0,
+        "embarked": "S"
+      },
+      {
+        "survived": 1,
+        "pclass": 3,
+        "sex": "female",
+        "age": 21.5,
+        "sibsp": 0,
+        "parch": 0,
+        "fare": 7.225,
+        "embarked": "C"
+      }
+    ],
+    "descriptive_stats": {
+      "age": {
+        "count": 891.0,
+        "mean": 29.11,
+        "std": 13.3,
+        "min": 0.42,
+        "25%": 21.5,
+        "50%": 26.0,
+        "75%": 36.0,
+        "max": 80.0
+      },
+      "fare": {
+        "count": 891.0,
+        "mean": 32.2,
+        "std": 49.69,
+        "min": 0.0,
+        "25%": 7.91,
+        "50%": 14.45,
+        "75%": 31.0,
+        "max": 512.33
+      },
+      "sibsp": {
+        "count": 891.0,
+        "mean": 0.52,
+        "std": 1.1,
+        "min": 0.0,
+        "25%": 0.0,
+        "50%": 0.0,
+        "75%": 1.0,
+        "max": 8.0
+      },
+      "parch": {
+        "count": 891.0,
+        "mean": 0.38,
+        "std": 0.81,
+        "min": 0.0,
+        "25%": 0.0,
+        "50%": 0.0,
+        "75%": 0.0,
+        "max": 6.0
+      }
+    }
+  }
+}

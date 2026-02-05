@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Explore Data - Titanic Survival Predictor Dashboard{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h2 class="mb-3"><i class="bi bi-table"></i> <span data-i18n="explore.title">Explore Dataset</span></h2>
+        <p class="text-muted"><span data-i18n="explore.subtitle">Browse the Titanic dataset</span>: {{ stats.total_passengers }} <span data-i18n="explore.passengers">passengers total</span>.</p>
+    </div>
+</div>
+
+<!-- Descriptive Statistics -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0" data-i18n="explore.desc_stats">Descriptive Statistics</h5>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-sm mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th data-i18n="explore.statistic">Statistic</th>
+                            {% for col in stats.descriptive_stats %}
+                            <th>{{ col | capitalize }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat_name in ['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max'] %}
+                        <tr>
+                            <td class="fw-bold">{{ stat_name }}</td>
+                            {% for col in stats.descriptive_stats %}
+                            <td>{{ stats.descriptive_stats[col][stat_name] }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Distribution Charts -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title text-muted" data-i18n="explore.survival_age">Survival by Age Group</h6>
+                <canvas id="chart-explore-age"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h6 class="card-title text-muted" data-i18n="explore.class_dist">Class Distribution</h6>
+                <canvas id="chart-explore-class"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sample Data Table -->
+<div class="row">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0" data-i18n="explore.sample_title">Sample Data (First 20 Rows)</h5>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-striped table-sm mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th data-i18n="explore.col.survived">Survived</th>
+                            <th data-i18n="explore.col.class">Class</th>
+                            <th data-i18n="explore.col.sex">Sex</th>
+                            <th data-i18n="explore.col.age">Age</th>
+                            <th data-i18n="explore.col.sibsp">SibSp</th>
+                            <th data-i18n="explore.col.parch">Parch</th>
+                            <th data-i18n="explore.col.fare">Fare</th>
+                            <th data-i18n="explore.col.embarked">Embarked</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in stats.sample_data %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>
+                                {% if row.survived %}
+                                    <span class="badge bg-success" data-i18n="explore.yes">Yes</span>
+                                {% else %}
+                                    <span class="badge bg-danger" data-i18n="explore.no">No</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ row.pclass }}</td>
+                            <td>{{ row.sex | capitalize }}</td>
+                            <td>{{ row.age | round(1) }}</td>
+                            <td>{{ row.sibsp }}</td>
+                            <td>{{ row.parch }}</td>
+                            <td>{{ row.fare | round(2) }}</td>
+                            <td>{{ row.embarked }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const statsData = {{ stats | tojson }};
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ageLabels = Object.keys(statsData.survival_by_age);
+    const ageValues = Object.values(statsData.survival_by_age).map(v => (v * 100).toFixed(1));
+    const ageCounts = Object.values(statsData.age_distribution);
+
+    new Chart(document.getElementById('chart-explore-age'), {
+        type: 'bar',
+        data: {
+            labels: ageLabels,
+            datasets: [{
+                label: 'Survival Rate (%)',
+                data: ageValues,
+                backgroundColor: 'rgba(40, 167, 69, 0.7)',
+                borderColor: 'rgba(40, 167, 69, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Passenger Count',
+                data: ageCounts,
+                backgroundColor: 'rgba(0, 123, 255, 0.3)',
+                borderColor: 'rgba(0, 123, 255, 1)',
+                borderWidth: 1,
+                yAxisID: 'y1'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'Survival Rate (%)' } },
+                y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Count' }, grid: { drawOnChartArea: false } }
+            }
+        }
+    });
+
+    const classLabels = ['First Class', 'Business Class', 'Economy Class'];
+    const classCounts = Object.values(statsData.class_distribution);
+    const classColors = ['rgba(255, 193, 7, 0.8)', 'rgba(13, 110, 253, 0.8)', 'rgba(108, 117, 125, 0.8)'];
+
+    new Chart(document.getElementById('chart-explore-class'), {
+        type: 'doughnut',
+        data: {
+            labels: classLabels,
+            datasets: [{
+                data: classCounts,
+                backgroundColor: classColors,
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+});
+</script>
+{% endblock %}

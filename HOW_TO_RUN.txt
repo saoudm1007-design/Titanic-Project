@@ -1,0 +1,48 @@
+Titanic Survival Prediction Dashboard
+======================================
+
+Prerequisites
+-------------
+- Python 3.8+
+
+Setup
+-----
+1. Install dependencies:
+
+   pip install -r requirements.txt
+
+2. Train the model:
+
+   python3 train_model.py
+
+   This generates models/model.pkl and models/metadata.json.
+
+3. Start the app:
+
+   python3 app.py
+
+4. Open http://localhost:5000 in your browser.
+
+5. Press Ctrl+C in the terminal to stop the app.
+
+Pages
+-----
+- /              Dashboard with prediction form and charts
+- /explore       Dataset exploration with sample data and statistics
+- /performance   Model metrics, confusion matrix, feature importance
+
+API
+---
+POST /api/predict with JSON body:
+
+  {
+    "pclass": 1,
+    "sex": "female",
+    "age": 29,
+    "sibsp": 0,
+    "parch": 0,
+    "fare": 211.34,
+    "embarked": "S"
+  }
+
+Returns predicted survival and probability.

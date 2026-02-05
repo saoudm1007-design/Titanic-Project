@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction Result - Titanic Survival Predictor Dashboard{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header {% if result.survived %}bg-success{% else %}bg-danger{% endif %} text-white text-center">
+                <h3 class="mb-0">
+                    {% if result.survived %}
+                        <i class="bi bi-heart-pulse-fill"></i> <span data-i18n="result.survived">Survived!</span>
+                    {% else %}
+                        <i class="bi bi-x-circle-fill"></i> <span data-i18n="result.not_survived">Did Not Survive</span>
+                    {% endif %}
+                </h3>
+            </div>
+            <div class="card-body">
+                <!-- Probability Bar -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-danger fw-bold"><span data-i18n="result.died_label">Died</span>: {{ result.probability_died }}%</span>
+                        <span class="text-success fw-bold"><span data-i18n="result.survived_label">Survived</span>: {{ result.probability_survived }}%</span>
+                    </div>
+                    <div class="progress" style="height: 30px;">
+                        <div class="progress-bar bg-danger" style="width: {{ result.probability_died }}%">
+                            {{ result.probability_died }}%
+                        </div>
+                        <div class="progress-bar bg-success" style="width: {{ result.probability_survived }}%">
+                            {{ result.probability_survived }}%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Summary -->
+                <h5 class="mb-3" data-i18n="result.details">Passenger Details</h5>
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <th data-i18n="form.pclass">Class</th>
+                            <td>
+                                {% if result.input.pclass == "1" %}
+                                    <span data-i18n="form.class1">First Class</span>
+                                {% elif result.input.pclass == "2" %}
+                                    <span data-i18n="form.class2">Business Class</span>
+                                {% else %}
+                                    <span data-i18n="form.class3">Economy Class</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th data-i18n="form.sex">Sex</th>
+                            <td>{{ result.input.sex | capitalize }}</td>
+                        </tr>
+                        <tr>
+                            <th data-i18n="form.age">Age</th>
+                            <td>{{ result.input.age }}</td>
+                        </tr>
+                        <tr>
+                            <th data-i18n="form.sibsp">Siblings/Spouses</th>
+                            <td>{{ result.input.sibsp }}</td>
+                        </tr>
+                        <tr>
+                            <th data-i18n="form.parch">Parents/Children</th>
+                            <td>{{ result.input.parch }}</td>
+                        </tr>
+                        <tr>
+                            <th data-i18n="form.fare">Fare</th>
+                            <td>{{ result.input.fare }}</td>
+                        </tr>
+                        <tr>
+                            <th data-i18n="form.embarked">Embarked</th>
+                            <td>
+                                {% if result.input.embarked == "S" %}<span data-i18n="form.southampton">Southampton</span>
+                                {% elif result.input.embarked == "C" %}<span data-i18n="form.cherbourg">Cherbourg</span>
+                                {% elif result.input.embarked == "L" %}<span data-i18n="form.liverpool">Liverpool</span>
+                                {% else %}<span data-i18n="form.queenstown">Queenstown</span>{% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="/dashboard" class="btn btn-primary w-100 mt-3">
+                    <i class="bi bi-arrow-left"></i> <span data-i18n="result.back">Back to Dashboard</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
